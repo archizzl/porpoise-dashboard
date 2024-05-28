@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta property="og:title" content="let's go PORPS!!" />
+<meta property="og:image" content="https://i.imgur.com/VNvVxNu.png" />
+
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  <title>shwrbb</title>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    user-select: none;
+    font-family: 'Helvetica';
+  }
+  #container {
+    height: 100vh;
+    width: 100vw;
+    overflow: scroll;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: lightgray;
+  }
+  #content {
+    position: relative;
+    top: -15px;
+    width: 720px;
+    height: auto;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  box-shadow: 0px 5px 1px #C30D29;
+
+  }
+  #top_anchor {
+    width: 720px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+  }
+
+  #anchor_row_1 {
+    display: flex;
+    flex-flow: row nowrap;
+  }
+
+  #radio_clock {
+    background-image: url('https://i.imgur.com/7xJud6g.png');
+    background-size: contain;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  #header_block {
+    width: 500px;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: column nowrap;
+    align-items: left;
+  }
+
+  #header_block > *  {
+  }
+
+  #header {
+    font-size: 70px;
+    font-family: 'Helvetica';
+  }
+
+  #now_playing {
+    font-family: 'Helvetica';
+  }
+
+  .circle {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .half {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+  }
+
+  .hand {
+    width: 2px;
+  }
+
+  #john {
+    font-family: helvetica;
+  }
+
+  #listeners_graph {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+    height: 60px;
+    background-color: #C30D29;
+    position: static;
+  }
+
+  .clg_column {
+    border-top: 3px solid white;
+    color: white;
+    display: flex;
+    font-size: 5px;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  #avgmarker {
+    position: absolute;
+    font-family: 'Helvetica';
+    color: white;
+    font-size: 15px;
+  }
+
+  #cst {
+    color: #243C74;
+  }
+
+  #clt {
+    color: #006E51;
+  }
+
+  #anchor_row_2 {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    margin: 5px;
+  }
+
+  .anchor_button {
+    margin: 10px;
+    height: 45px;
+    width: 120px;
+    background-color: blue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Helvetica';
+    border-radius: 5px;
+    color: #e9eff1;
+    box-shadow: 5px 5px 2px 1px #919db9;
+  }
+
+  .anchor_button:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+
+  #report_form {
+    background-color: #243C74;
+  }
+
+  #spinitron {
+    background-color: #74243c;
+  }
+
+  #media_team {
+    background-color: #246474;
+  }
+
+  #nodj {
+    background-color: #3c7424;
+  }
+
+  #join {
+    background-color: #742464;
+  }
+
+  /* HEX CODES
+
+  red:
+  C30D29
+
+  blue:
+  243C74
+
+  lighter green:
+  A9BF04
+
+  darker green:
+  006E51
+
+
+  */
+
+
+  @keyframes dot {
+    100% {
+      color: #A9BF04;
+    }
+  }
+
+  #calendar {
+    width: 90%;
+    height: 500px;
+    display: flex;
+    flex-flow: row;
+    align-items: flex-start;
+    justify-content: space-around;
+    padding: 20px;
+  }
+
+  #calendar_iframe {
+    height: 100%;
+    width: 100%;
+  }
+
+  .calendar_column {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .show {
+    height: 80px;
+    width: 80px;
+    border-radius: 10px;
+    outline: 3px solid black;
+    margin: 10px;
+  }
+
+  a {
+    color: inherit;
+     text-decoration: none;
+  }
+
+  #porpoise_dashboard_content {
+	  width: 90%;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  #current_show {
+	  cursor: pointer;
+  pointer-events: none;
+  }
+
+  #stream_player_box {
+	  height: 130px;
+	  padding: 10px;
+	  /*
+    background-image: url('https://media.istockphoto.com/id/1464374556/photo/finless-porpoise-swims-underwater-greets-and-looks-curiously.jpg?s=612x612&w=0&k=20&c=yIkM0Cg5BDdiFdAOXGNXzOjhdc6Gk5D6xjxrAmbu4_U=');
+    */
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #playlist {
+    padding-top: 10px;
+    height: 300px;
+    width: 500px;
+  }
+
+  #playlist_iframe {
+    height: 100%;
+    width: 100%;
+  }
+
+  #stream_audio {
+  /*	opacity: 0.3;
+  */
+  }
+
+  #spreadsheet {
+  	margin-top: 30px;
+	width: 90%;
+  	height: 700px;
+  }
+
+  #spreadsheet_iframe {
+	  height: 100%;
+	  width: 100%;
+  }
+
+
+}
+
+</style>
+</head>
+<body>
+  <div id="container">
+    <div id="content">
+      <div id="top_anchor">
+
+      <div id="anchor_row_1">
+        <div id="radio_clock">
+        </div>
+
+        <div id="header_block">
+          <div id="header">wrbb 104<span id="dot">.</span>9fm</div>
+          <div id="now_playing">
+           is now playing the best of the best aíííaííí i'm testing '''%$#@*我就是Archie我爱我的朋友
+          </div>
+          <marquee behavior="alternate" id="john">john</marquee>
+          <div id="listeners_graph">
+            <div id="avgmarker">loading. . .</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="anchor_row_2">
+	      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdhxNYZ1okoQcZuHOGLaJb6sSnkyyy5c1dzJs3wsUpXjOZGTg/viewform?usp=send_form" target="_blank">
+		      <div class="anchor_button" id="report_form">dj report form</div>
+	      </a>
+	      <a href="https://spinitron.com/m/user" target="_blank">
+		      <div class="anchor_button" id="spinitron">spinitron</div>
+	      </a>
+	      <a href="https://wrbbradio.org/mediateam/" target="_blank">
+	      <div class="anchor_button" id="media_team">media</div>
+	      </a>
+	      <a href="http://wrbbradio.org/" target="_blank">
+		      <div class="anchor_button" id="nodj">awoo</div>
+	      </a>
+	      <a href="https://wrbbradio.org/membership/" target="_blank">
+		      <div class="anchor_button" id="join">join!</div>
+	      </a>
+      </div>
+
+      </div>
+
+<!--<iframe src="https://streams.radiomast.io/station/3e3cc861-901c-408b-a2c5-f6ea2219ddeb/player/widget?t=default&s=dafd1179-5404-4939-9c1c-a014c6964254" width="360" height="320" scrolling="no" frameborder="0" allow="autoplay" t="heatwave"></iframe>
+-->
+     <div id="porpoise_dashboard_content">
+       <div id="current_show">
+	       <!-- <div id="cursor_blocker"></div> --> 
+         <iframe id="current_show_iframe" src="//widgets.spinitron.com/widget/upcoming-shows?station=wrbb&count=3"></iframe>
+       </div>
+       <div id="stream_player_box">
+       <audio controls id="stream_audio">
+	       <source src="https://streams.radiomast.io/dafd1179-5404-4939-9c1c-a014c6964254" type="audio/mp3" />
+       </audio>	   	  
+       </div>
+     </div>
+
+
+
+
+          <div id="calendar">
+ <iframe id="calendar_iframe" src="//widgets.spinitron.com/widget/schedule?station=wrbb"></iframe>
+	  </div>
+
+	          <div id="playlist">
+          <iframe id="playlist_iframe" src="//widgets.spinitron.com/widget/now-playing-v2?station=wrbb&num=5&sharing=1&cover=1&player=0&merch=1" allow="encrypted-media"></iframe>
+
+          </div>
+	  <div id="spreadsheet">
+	  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSIEFL6grR-Sqt0Oll9qwx-TsfF-_YR53Rb36MeS4tshuoJIc9eJyyDK-QHON_TpXiR7qDya4PQHpPv/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false", id="spreadsheet_iframe"></iframe>
+	</div>
+    </div>
+    </div>
+  </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+<script>
+
+window.onload = function(){
+
+console.log(localStorage)
+	
+/*
+fetch("zingers.txt")
+  .then((res) => res.text())
+  .then((text) => {
+		  console.log(text)
+    // do something with "text"
+   })
+  .catch((e) => console.error(e));
+*/
+
+		playlist_count = 0;
+
+  var audio = document.getElementById("stream_audio");
+  audio.volume = 0.05;
+
+function shows_update_tick() {
+  playlist_count++
+  var mins = new Date().getMinutes();
+  if (mins == "1") {
+		  console.log("refreshing iframes")
+	  $('#current_show_iframe').attr('src', $('#current_show_iframe').attr('src'));
+	  }
+  if(playlist_count % 30 == 0) {
+		  playlist_count = 0;
+		  
+		  $('#playlist_iframe').attr('src', $('#playlist_iframe').attr('src'));
+	  }
+
+
+	}
+
+
+$(window).focus(function(e) {
+    console.log("window is focused");
+		$('#current_show_iframe').attr('src', $('#current_show_iframe').attr('src'));
+		$('#playlist_iframe').attr('src', $('#playlist_iframe').attr('src'));
+		// Do Focus Actions Here
+});
+
+
+  const random_messages = ["god save the animals!", "we dare you to listen!", "where is jonah lefkoff when you need him?", "are you on classes or co-op?",
+    "can you please fix porpoise dashboard to it can have special characters🌷🍎🍀🍓🥕☘️🍃🍯🌸", "hey, can i borrow that chair?", "don't forget your show report form!", "whose line is it, anyway?",
+    "rosebud!", "want average to be equal to 27px", "i am playing guitar and he is playing bass and i cannot keep up with him", "anti-glass eating PSA", "standing in my very long driveway", "gebnec rise!", "you like calamari? get the calamari.",
+    "what’s this, some kind of eternal sunshine?", "18884368828", "casey, confronted with a deck of cards",
+    "embedded audio programming", "FAYE: it was very chill.",
+    "milkshake, two straws, room for one more", "it’s hard to see past all the feathers!", "balls",
+    "Thinking Thinking", "9177550506 call for an okay time", "send home the tubas"];
+
+  function renderMarquee(x) {
+    mark = document.getElementById('john');
+    shuffled = random_messages.sort(() => 0.5 - Math.random());
+    selected = shuffled.slice(0, x);
+		  message = selected.join(' - ');
+    mark.innerHTML = message;
+  }
+
+  const average = array => array.reduce((a, b) => a + b) / array.length;
+
+  //CLONKS
+  function clockIt() {
+    curr = new Date();
+    h = 30 * ((curr.getHours() % 12) + curr.getMinutes() / 60);
+    m = 6 * curr.getMinutes();
+    s = 6 * curr.getSeconds();
+    hand_cats = [h,m,s];
+    //console.log(h, m, s)
+    let clock_container = document.getElementById('radio_clock');
+    let num = 3;
+    let dimens = 40;
+    for(i = 0; i<num ; i++){
+      let currCircle = 'circle' + i;
+      let currHalf = 'half' + i;
+      let currHand = 'hand' + i;
+      let circle = document.createElement('div');
+      circle.setAttribute('id', currCircle);
+      circle.setAttribute('class', 'circle')
+      clock_container.appendChild(circle);
+      let circleCurr = document.getElementById(currCircle)
+      circleCurr.style.height = dimens + 'px';
+      circleCurr.style.width = dimens + 'px';
+      circleCurr.style.transform = 'rotate(' + hand_cats[i] + 'deg)';
+      let half = document.createElement('div');
+      half.setAttribute('id', currHalf);
+      half.setAttribute('class', 'half')
+      circleCurr.appendChild(half)
+
+      let halfCurr = document.getElementById(currHalf);
+      halfCurr.style.width = dimens + 'px';
+      halfCurr.style.height = (dimens/2) + 'px';
+
+      let hand = document.createElement('div');
+      hand.setAttribute('id', currHand);
+      hand.setAttribute('class', 'hand')
+      half.appendChild(hand)
+
+      let handCurr = document.getElementById(currHand)
+      hand.style.height = dimens/2 - 6 + 'px';
+      hand.style.backgroundColor = 'black';
+
+      dimens+=40;
+    }
+    setInterval(function(){
+      function r(el, deg) {
+        let r = document.getElementById(el)
+        r.style.transform = 'rotate(' + deg + 'deg)';
+      }
+      let curr = new Date();
+      s = curr.getSeconds()
+      if(s == 360){
+        s = 0;
+      }
+      r('circle2', 6 * s);
+      r('circle1', 6 * curr.getMinutes());
+      r('circle0', 30 * (curr.getHours() % 12) + curr.getMinutes() / 2);
+    }, 1000);
+  }
+
+  //GET PLAYING INFO FROM WRBB JSON XML
+
+   const now_playing = document.getElementById('now_playing');
+
+  function getInfo(){
+
+		  //get listener count
+    $.getJSON('http://www.whateverorigin.org/get?url=' +
+    encodeURIComponent('http://dafd1179-5404-4939-9c1c-a014c6964254.icecast.radiomast.io/status-json.xsl') +
+    '&callback=?', function(data) {
+        data = data.contents;
+        try {
+          current_listeners = data["icestats"]["source"][0]["listeners"];
+        }
+        catch {
+          data = JSON.parse(data);
+          current_listeners = data["icestats"]["source"][0]["listeners"];
+
+        }
+        listeners_range.push(current_listeners);
+        if(listeners_range.length > 30) {
+          listeners_range.shift();
+        }
+      });
+
+		  //get current song
+    $.getJSON('http://www.whateverorigin.org/get?url=' +
+    encodeURIComponent('https://audio-edge-qse4n.yyz.g.radiomast.io/dafd1179-5404-4939-9c1c-a014c6964254/metadata') +
+    '&callback=?', function(data) {
+        data = data.contents;
+		    data = JSON.parse(data)
+		    current_song = data['metadata']
+		    
+        now_playing.innerHTML = "is now playing <b id='cst'>" +
+        current_song + "</b> for <b id='clt'>" +
+        current_listeners + ' </b> listeners.'
+      console.log(current_song);
+	    });
+		  
+}
+
+	  //RENDER LIVE LISTENER GRAPH
+  const g = document.getElementById("listeners_graph");
+  listeners_range = [];
+  function renderGraph(){
+    avg = average(listeners_range);
+    g.innerHTML = '<div id="avgmarker"> avg/min : ' + avg.toFixed(2) + '</div>'
+    cw = g.offsetWidth / 30;
+    for(i = 0; i < listeners_range.length; i++) {
+      c = document.createElement('div');
+      c.setAttribute('class', 'clg_column');
+      c.style.width = cw + 'px';
+      c.style.height = 28 + ((listeners_range[i] - avg) * 3) + 'px';
+      g.appendChild(c);
+    }
+  }
+
+
+  //NOW PLAYING IMAGE
+  console.log($.getJSON('https://api.wrbbradio.org/getSchedule'))
+
+
+
+
+
+  //SETUP
+  renderMarquee(random_messages.length);
+  clockIt();
+  getInfo();
+  setTimeout(function() {
+    setInterval(function(){
+      getInfo();
+      renderGraph();
+      shows_update_tick();
+    }, 1000);
+  }, 1000);
+
+}
+
+
+
+</script>
+made by archie o'connell with help from jonah lefkoff and margot hulme
+</html>
+
